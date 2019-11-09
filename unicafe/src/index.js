@@ -47,7 +47,10 @@ const Button = ({ text, onClick }) => {
 
 const Statistic = ({ text, value }) => {
   return (
-    <p>{text} {value}</p>
+    <tr>
+      <td>{text}</td> 
+      <td>{value}</td>
+    </tr>
   );
 };
 
@@ -66,14 +69,16 @@ const Statistics = ({ ratings }) => {
     );
   }
   return (
-      <>
-        <Statistic text="good" value={ratings.good} />
-        <Statistic text="neutral" value={ratings.neutral} />
-        <Statistic text="bad" value={ratings.bad} />
-        <Statistic text="all" value={sum} />
-        <Statistic text="average" value={weightedAverage} />
-        <Statistic text="positive" value={goodPercentage + ' %'} />
-      </>
+      <table>
+        <tbody>
+          <Statistic text="good" value={ratings.good} />
+          <Statistic text="neutral" value={ratings.neutral} />
+          <Statistic text="bad" value={ratings.bad} />
+          <Statistic text="all" value={sum} />
+          <Statistic text="average" value={weightedAverage} />
+          <Statistic text="positive" value={goodPercentage + ' %'} />
+        </tbody>
+      </table>
   );
 };
 
