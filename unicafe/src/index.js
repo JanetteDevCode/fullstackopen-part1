@@ -48,6 +48,11 @@ const Statistics = ({ ratings }) => {
   const sum = calculateSum(Object.values(ratings));
   const weightedAverage = calculateWeightedAverage(weights, ratings);
   const goodPercentage = calculatePercentage(ratings.good, sum);
+  if (sum === 0) {
+    return (
+      <p>No feedback given</p>
+    );
+  }
   return (
       <>
         <p>good {ratings.good}</p>
