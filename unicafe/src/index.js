@@ -39,16 +39,31 @@ const calculateWeightedAverage = (weights, scores) => {
   return weightedSum / sum;
 };
 
-const App = () => {
-  const [good, setGood] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [bad, setBad] = useState(0);
-
+const Statistics = ({ ratings }) => {
   const weights = {
     good: 1,
     neutral: 0,
     bad: -1
   };
+  const sum = calculateSum(Object.values(ratings));
+  const weightedAverage = calculateWeightedAverage(weights, ratings);
+  const goodPercentage = calculatePercentage(ratings.good, sum);
+  return (
+      <>
+        <p>good {ratings.good}</p>
+        <p>neutral {ratings.neutral}</p>
+        <p>bad {ratings.bad}</p>
+        <p>all {sum}</p>
+        <p>average {weightedAverage}</p>
+        <p>positive {goodPercentage} %</p>
+      </>
+  );
+};
+
+const App = () => {
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
 
   const collectGoodFeedback = () => {
     console.log('good feedback received');
@@ -74,12 +89,7 @@ const App = () => {
         <button onClick={collectBadFeedback}>bad</button>
       </div>
       <h1>statistics</h1>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {calculateSum([good, neutral, bad])}</p>
-      <p>average {calculateWeightedAverage(weights, {good: good, neutral: neutral, bad: bad})}</p>
-      <p>positive {calculatePercentage(good, calculateSum([good, neutral, bad]))} %</p>
+      <Statistics ratings={{ good: good, neutral: neutral, bad: bad }} />
     </div>
   );
 };
