@@ -39,6 +39,18 @@ const calculateWeightedAverage = (weights, scores) => {
   return weightedSum / sum;
 };
 
+const Button = ({ text, onClick }) => {
+  return (
+    <button onClick={onClick}>{text}</button>
+  );
+};
+
+const Statistic = ({ text, value }) => {
+  return (
+    <p>{text} {value}</p>
+  );
+};
+
 const Statistics = ({ ratings }) => {
   const weights = {
     good: 1,
@@ -55,12 +67,12 @@ const Statistics = ({ ratings }) => {
   }
   return (
       <>
-        <p>good {ratings.good}</p>
-        <p>neutral {ratings.neutral}</p>
-        <p>bad {ratings.bad}</p>
-        <p>all {sum}</p>
-        <p>average {weightedAverage}</p>
-        <p>positive {goodPercentage} %</p>
+        <Statistic text="good" value={ratings.good} />
+        <Statistic text="neutral" value={ratings.neutral} />
+        <Statistic text="bad" value={ratings.bad} />
+        <Statistic text="all" value={sum} />
+        <Statistic text="average" value={weightedAverage} />
+        <Statistic text="positive" value={goodPercentage + ' %'} />
       </>
   );
 };
@@ -89,9 +101,9 @@ const App = () => {
     <div>
       <h1>give feedback</h1>
       <div>
-        <button onClick={collectGoodFeedback}>good</button>
-        <button onClick={collectNeutralFeedback}>neutral</button>
-        <button onClick={collectBadFeedback}>bad</button>
+        <Button text="good" onClick={collectGoodFeedback} />
+        <Button text="neutral" onClick={collectNeutralFeedback} />
+        <Button text="bad" onClick={collectBadFeedback} />
       </div>
       <h1>statistics</h1>
       <Statistics ratings={{ good: good, neutral: neutral, bad: bad }} />
