@@ -25,11 +25,20 @@ const getRandomInt = (min, max) => {
 
 const App = ({ anecdotes }) => {
   const [selected, setSelected] = useState(0);
+  const [votes, setVotes] = useState(() => {
+    return new Array(anecdotes.length).fill(0);
+  });
 
   // to display random anecdote during initial page render, use this:
   // const [selected, setSelected] = useState(() => {
   //   return getRandomInt(0, anecdotes.length);
   // });
+
+  const handleVote = () => {
+    const votesCopy = [...votes];
+    votesCopy[selected] += 1;
+    setVotes(votesCopy);
+  };
 
   const getNextAnecdote = () => {
     setSelected(getRandomInt(0, anecdotes.length));
@@ -38,6 +47,8 @@ const App = ({ anecdotes }) => {
   return (
     <div>
       <p>{anecdotes[selected]}</p>
+      <p>has {votes[selected]} votes</p>
+      <button onClick={handleVote}>vote</button>
       <button onClick={getNextAnecdote}>next anecdote</button>
     </div>
   );
